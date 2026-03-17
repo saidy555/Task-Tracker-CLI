@@ -1,5 +1,8 @@
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({ "taskID", "taskName", "taskStatus", "taskDescription", "createdAt", "updatedAt" })
 public class Task {
     private int taskID;
     private String taskName;
@@ -7,6 +10,9 @@ public class Task {
     private String taskDescription;
     private Instant createdAt;
     private Instant updatedAt;
+
+    public Task() {
+    }
 
     public Task(int taskID, String taskName, String taskStatus, String taskDescription, Instant createdAt,
             Instant updatedAt) {
@@ -68,8 +74,23 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task [taskID=" + taskID + ", taskName=" + taskName + ", taskStatus=" + taskStatus + ", taskDescription="
-                + taskDescription + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+        return "ID: " + taskID + ", taskName=" + taskName + ", taskStatus=" + taskStatus + ", taskDescription="
+                + taskDescription + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Task other = (Task) obj;
+        return taskID == other.taskID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(taskID);
     }
 
 }
